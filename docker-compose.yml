@@ -1,0 +1,57 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: my_progress_app
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - my_progress_network
+
+  nginx:
+    image: nginx:alpine
+    container_name: my_progress_nginx
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - my_progress_network
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: my_progress_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: my_progress
+      POSTGRES_USER: my_progress_user
+      POSTGRES_PASSWORD: my_progress_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - my_progress_postgres_data:/var/lib/postgresql/data
+    networks:
+      - my_progress_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: my_progress_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - my_progress_network
+
+volumes:
+  my_progress_postgres_data:
+
+networks:
+  my_progress_network:
+    driver: bridge
