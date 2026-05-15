@@ -1,58 +1,193 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
+My Progress
+My Progress é uma plataforma privada de vídeo e gestão de conhecimento, com foco em progresso de estudos, organização de conteúdos, anotações por timestamp e futura integração com IA local.
+O objetivo do projeto é permitir que vídeos privados sejam organizados em cursos e módulos, acompanhados com controle de progresso, anotações inteligentes, transcrição, busca semântica e recursos de RAG utilizando IA local.
+---
+Objetivo do projeto
+Criar uma plataforma própria para centralizar conteúdos em vídeo e transformar esses conteúdos em conhecimento pesquisável, estruturado e reutilizável.
+A proposta principal é unir:
+vídeos privados;
+cursos e módulos;
+progresso de estudos;
+anotações por timestamp;
+transcrição automática;
+busca semântica;
+IA local para consulta ao conhecimento.
+---
+Stack inicial
+O projeto está sendo desenvolvido com:
+Laravel — framework principal da aplicação;
+Filament — painel administrativo;
+PostgreSQL — banco de dados principal;
+Redis — filas e cache em etapas futuras;
+Docker Compose — ambiente de desenvolvimento;
+Nginx — servidor web;
+PHP 8.4 — runtime da aplicação;
+FFmpeg — processamento de vídeo em etapas futuras;
+Whisper — transcrição de áudio em etapas futuras;
+pgvector — busca vetorial em etapas futuras;
+Ollama — IA local em etapas futuras.
+---
+Estado atual do projeto
+Até o momento, o projeto possui:
+ambiente Docker configurado;
+aplicação Laravel rodando;
+PostgreSQL configurado;
+Redis disponível;
+Filament instalado;
+painel administrativo funcional;
+usuário admin inicial;
+paleta visual/documentação inicial;
+estrutura inicial de banco em desenvolvimento.
+---
+Estrutura planejada
+A primeira estrutura de domínio do projeto será composta por:
+`users` — usuários autenticáveis da aplicação;
+`profiles` — dados complementares dos usuários;
+`courses` — cursos ou trilhas de conhecimento;
+`modules` — módulos pertencentes aos cursos;
+`videos` — vídeos da plataforma;
+`module_video` — relacionamento entre módulos e vídeos.
+Futuramente, serão adicionadas estruturas para:
+progresso dos vídeos;
+anotações;
+transcrições;
+embeddings;
+busca semântica;
+conversas com IA/RAG.
+---
+Ambiente de desenvolvimento
+Pré-requisitos
+Antes de rodar o projeto, é necessário ter instalado:
+Docker Desktop;
+WSL2/Ubuntu;
+Git;
+DBeaver ou outro cliente PostgreSQL, opcional.
+---
+Subindo o projeto
+Clone o repositório:
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone https://github.com/balenaV/my-progress.git
+cd my-progress
 ```
-
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Copie o arquivo de ambiente:
+```bash
+cp .env.example .env
+```
+Suba os containers:
+```bash
+docker compose up -d --build
+```
+Entre no container da aplicação:
+```bash
+docker exec -it my_progress_app bash
+```
+Instale as dependências:
+```bash
+composer install
+```
+Gere a chave da aplicação:
+```bash
+php artisan key:generate
+```
+Rode as migrations:
+```bash
+php artisan migrate
+```
+A aplicação ficará disponível em:
+```text
+http://localhost:8000
+```
+O painel administrativo ficará disponível em:
+```text
+http://localhost:8000/admin
+```
+---
+Banco de dados
+A conexão local com PostgreSQL pode ser feita pelo DBeaver usando:
+```text
+Host: localhost
+Port: 5432
+Database: my_progress
+Username: my_progress_user
+Password: my_progress_password
+```
+Dentro do Docker, a aplicação usa o host:
+```text
+postgres
+```
+---
+Design system
+A identidade visual inicial está documentada em:
+```text
+docs/design/design-system.md
+```
+A paleta principal é baseada em:
+roxo/índigo para identidade e foco cognitivo;
+verde para progresso, IA e estados ativos;
+laranja/dourado para anotações e timestamps;
+neutros quentes para leitura e superfícies;
+tons terrosos para erros e alertas.
+---
+Roadmap inicial
+Fase 1 — Base da aplicação
+configurar Laravel;
+configurar Docker;
+configurar PostgreSQL;
+configurar Redis;
+instalar Filament;
+configurar autenticação inicial;
+versionar projeto no GitHub.
+Fase 2 — Estrutura principal do banco
+criar `profiles`;
+criar `courses`;
+criar `modules`;
+criar `videos`;
+criar `module_video`;
+configurar relacionamentos entre models.
+Fase 3 — Painel administrativo
+criar Resource de cursos;
+criar Resource de módulos;
+criar Resource de vídeos;
+organizar formulários;
+organizar listagens;
+aplicar estados e ordenação.
+Fase 4 — Upload e player inicial
+implementar upload simples de vídeo;
+salvar caminho do arquivo original;
+criar player básico;
+validar reprodução de vídeos.
+Fase 5 — Progresso e anotações
+salvar progresso do usuário;
+retomar vídeo de onde parou;
+criar anotações por timestamp;
+listar e editar anotações.
+Fase 6 — Processamento e IA
+processar vídeo com FFmpeg;
+gerar HLS;
+extrair áudio;
+transcrever com Whisper;
+gerar embeddings;
+implementar busca semântica;
+integrar RAG com IA local.
+---
+Convenções iniciais
+Commits
+Sugestão de padrão:
+```text
+feat: nova funcionalidade
+fix: correção de bug
+chore: configuração ou manutenção
+docs: documentação
+style: ajuste visual
+refactor: melhoria interna sem alterar comportamento
+```
+Exemplos:
+```bash
+git commit -m "feat: add initial database structure"
+git commit -m "docs: add project readme"
+git commit -m "style: add default system color palette"
+```
+---
+Observações
+Este projeto está em fase inicial de desenvolvimento.  
+A prioridade atual é construir uma base sólida antes de avançar para processamento de vídeo, transcrição, embeddings e IA local.
