@@ -22,6 +22,12 @@ class ModuleResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'title';
 
+    protected static ?string $modelLabel = 'módulo';
+
+    protected static ?string $pluralModelLabel = 'módulos';
+
+    protected static ?string $navigationLabel = 'Módulos';
+
     public static function form(Schema $schema): Schema
     {
         return ModuleForm::configure($schema);

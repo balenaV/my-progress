@@ -13,4 +13,14 @@ class CreateModule extends CreateRecord
     {
         return static::getResource()::getUrl('index');
     }
+
+    public function getTitle(): string
+    {
+        return 'Criar módulo';
+    }
+
+    public function getHeading(): string
+    {
+        return 'Criar novo módulo';
+    }
 }

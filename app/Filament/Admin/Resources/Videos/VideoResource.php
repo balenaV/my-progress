@@ -22,6 +22,12 @@ class VideoResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'title';
 
+    protected static ?string $modelLabel = 'vídeo';
+
+    protected static ?string $pluralModelLabel = 'vídeos';
+
+    protected static ?string $navigationLabel = 'Vídeos';
+
     public static function form(Schema $schema): Schema
     {
         return VideoForm::configure($schema);

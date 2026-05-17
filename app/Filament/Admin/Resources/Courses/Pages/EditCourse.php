@@ -17,6 +17,16 @@ class EditCourse extends EditRecord
         ];
     }
 
+    public function getTitle(): string
+    {
+        return 'Editar curso';
+    }
+
+    public function getHeading(): string
+    {
+        return 'Editar curso';
+    }
+
     protected function getRedirectUrl(): string
     {
         return static::getResource()::getUrl('index');

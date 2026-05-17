@@ -13,4 +13,14 @@ class CreateVideo extends CreateRecord
     {
         return static::getResource()::getUrl('index');
     }
+
+    public function getTitle(): string
+    {
+        return 'Criar vídeo';
+    }
+
+    public function getHeading(): string
+    {
+        return 'Criar novo vídeo';
+    }
 }

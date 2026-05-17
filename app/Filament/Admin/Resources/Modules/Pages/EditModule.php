@@ -21,4 +21,14 @@ class EditModule extends EditRecord
     {
         return static::getResource()::getUrl('index');
     }
+
+    public function getTitle(): string
+    {
+        return 'Editar módulo';
+    }
+
+    public function getHeading(): string
+    {
+        return 'Editar módulo';
+    }
 }

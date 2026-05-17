@@ -21,4 +21,14 @@ class EditVideo extends EditRecord
     {
         return static::getResource()::getUrl('index');
     }
+
+    public function getTitle(): string
+    {
+        return 'Editar vídeo';
+    }
+
+    public function getHeading(): string
+    {
+        return 'Editar vídeo';
+    }
 }

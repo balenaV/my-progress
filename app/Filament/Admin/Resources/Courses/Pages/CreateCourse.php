@@ -9,6 +9,16 @@ class CreateCourse extends CreateRecord
 {
     protected static string $resource = CourseResource::class;
 
+    public function getTitle(): string
+    {
+        return 'Criar curso';
+    }
+
+    public function getHeading(): string
+    {
+        return 'Criar novo curso';
+    }
+
     protected function getRedirectUrl(): string
     {
         return static::getResource()::getUrl('index');
