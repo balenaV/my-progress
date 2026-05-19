@@ -5,6 +5,7 @@ namespace App\Filament\Admin\Resources\Modules;
 use App\Filament\Admin\Resources\Modules\Pages\CreateModule;
 use App\Filament\Admin\Resources\Modules\Pages\EditModule;
 use App\Filament\Admin\Resources\Modules\Pages\ListModules;
+use App\Filament\Admin\Resources\Modules\RelationManagers\VideosRelationManager;
 use App\Filament\Admin\Resources\Modules\Schemas\ModuleForm;
 use App\Filament\Admin\Resources\Modules\Tables\ModulesTable;
 use App\Models\Module;
@@ -41,7 +42,7 @@ class ModuleResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            VideosRelationManager::class
         ];
     }
 
