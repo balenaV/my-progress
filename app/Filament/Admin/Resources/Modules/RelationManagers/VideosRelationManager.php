@@ -3,9 +3,11 @@
 namespace App\Filament\Admin\Resources\Modules\RelationManagers;
 
 use App\Filament\Admin\Resources\Videos\VideoResource;
+use Filament\Actions\Action;
 use Filament\Actions\AttachAction;
 use Filament\Actions\DetachAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -22,7 +24,7 @@ class VideosRelationManager extends RelationManager
     {
         return $table
             ->recordTitleAttribute('title')
-            ->defaultSort('videos.created_at', 'desc')
+            ->defaultSort('module_video.sort_order')
             ->columns([
                 TextColumn::make('title')
                     ->label('Título')
@@ -73,19 +75,51 @@ class VideosRelationManager extends RelationManager
                         return sprintf('%02d:%02d', $minutes, $seconds);
                     }),
 
-                TextColumn::make('pivot.sort_order')
+                TextColumn::make('module_sort_order')
                     ->label('Ordem')
-                    ->sortable(),
+                    ->getStateUsing(fn($record) => $record->pivot?->sort_order ?? '-')
+                    ->sortable(query: function ($query, string $direction) {
+                        return $query->orderBy('module_video.sort_order', $direction);
+                    }),
             ])
             ->headerActions([
                 AttachAction::make()
                     ->label('Vincular vídeo')
                     ->recordTitleAttribute('title')
-                    ->preloadRecordSelect(),
+                    ->preloadRecordSelect()
+                    ->form(fn(AttachAction $action): array => [
+                        $action->getRecordSelect(),
+
+                        TextInput::make('sort_order')
+                            ->label('Ordem')
+                            ->numeric()
+                            ->default(0)
+                            ->required(),
+                    ]),
             ])
             ->recordActions([
                 EditAction::make()
                     ->label('Editar vídeo'),
+
+                Action::make('editarOrdem')
+                    ->label('Editar ordem')
+                    ->icon('heroicon-o-arrows-up-down')
+                    ->form([
+                        TextInput::make('sort_order')
+                            ->label('Ordem')
+                            ->numeric()
+                            ->required(),
+                    ])
+                    ->fillForm(fn($record): array => [
+                        'sort_order' => $record->pivot->sort_order,
+                    ])
+                    ->action(function ($record, array $data): void {
+                        $this->ownerRecord
+                            ->videos()
+                            ->updateExistingPivot($record->id, [
+                                'sort_order' => $data['sort_order'],
+                            ]);
+                    }),
 
                 DetachAction::make()
                     ->label('Desvincular'),

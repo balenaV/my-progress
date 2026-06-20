@@ -41,6 +41,8 @@ class Module extends Model
      */
     public function videos(): BelongsToMany
     {
-        return $this->belongsToMany(Video::class);
+        return $this->belongsToMany(Video::class)
+            ->withPivot('sort_order')
+            ->withTimestamps();
     }
 }
